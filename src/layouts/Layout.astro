@@ -4,10 +4,11 @@
   import ClientRouter from 'astro/components/ClientRouter.astro'
 
   interface Props {
-    title: string
+    title: string,
+    favicon?: string
   }
 
-  const { title = "Project" } = Astro.props;
+  const { title = "Project", favicon = './assets/favicon.webp' } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +16,7 @@
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/svg+xml' href='./assets/favicon.webp' />
+    <link rel='icon' type='image/svg+xml' href={favicon} />
     <title>{title}</title>
     <ClientRouter />
   </head>

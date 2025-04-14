@@ -20,13 +20,13 @@ const { title = 'The Game', img } = game.data;
 const { Content } = await render(game);
 ---
 
-<Layout title={title}>
-  <a href='/' class='arrow'>
+<Layout title={title} favicon='/project-000-925/assets/favicon.webp'>
+  <a href='/project-000-925/' class='arrow'>
     <img src='/project-000-925/assets/arrow-left.png' alt='' />
   </a>
   <section class='container'>
     <aside class='left'>
-      <img transition:name={`img-${slug}`} src={`/project-000-925//${img}`} alt={title} />
+      <img transition:name={`img-${slug}`} src={`/project-000-925/${img}`} alt={title} />
     </aside>
     <aside class='right' transition:name={`plot-${slug}`}> 
       <Content  />
