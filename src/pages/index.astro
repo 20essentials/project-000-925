@@ -13,8 +13,8 @@ const games = await getCollection('games');
         return (
           <article class='card'>
             <aside class='left'>
-              <a href={`/game/${slug}`}>
-                <img transition:name={`img-${slug}`} src={img} alt='img' />
+              <a href={`./game/${slug}`}>
+                <img transition:name={`img-${slug}`} src={`./${img}`} alt='img' />
               </a>
             </aside>
             <aside class='right'>
