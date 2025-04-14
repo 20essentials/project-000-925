@@ -1,0 +1,50 @@
+<div class='background-wrapper'>
+  <h2>VIDEOGAMES</h2>
+  <div class='blurred-circle'></div>
+</div>
+
+<style>
+  .background-wrapper {
+    position: fixed;
+    top: 0;
+    z-index: -10;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .blurred-circle {
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vmax;
+    height: 26vmax;
+    border-radius: 50%;
+    background-color: dodgerblue;
+    opacity: 0.3;
+    filter: blur(60px);
+  }
+
+  h2 {
+    width: 100%;
+    text-align: center;
+    padding: 1.5vmax;
+    font-size: 1.7vmax;
+    color: transparent;
+    background-image: linear-gradient(
+      to right bottom,
+      springgreen,
+      mediumpurple,
+      cyan,
+      springgreen
+    );
+    background-clip: text;
+
+    @media (width <= 1111px) and (orientation: landscape) {
+      display: none;
+    }
+  }
+</style>

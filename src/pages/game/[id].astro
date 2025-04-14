@@ -1,0 +1,98 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+
+  return games.map(game => {
+    const { slug } = game;
+    return {
+      params: { id: slug },
+      props: { game }
+    };
+  });
+}
+
+const { game } = Astro.props;
+const { slug } = game;
+const { title = 'The Game', img } = game.data;
+const { Content } = await render(game);
+---
+
+<Layout title={title}>
+  <a href='/' class='arrow'>
+    <img src='/assets/arrow-left.png' alt='' />
+  </a>
+  <section class='container'>
+    <aside class='left'>
+      <img transition:name={`img-${slug}`} src={img} alt={title} />
+    </aside>
+    <aside class='right' transition:name={`plot-${slug}`}> 
+      <Content  />
+    </aside>
+  </section>
+</Layout>
+
+<style>
+  .arrow {
+    position: absolute;
+    top: 1vmax;
+    left: 3vmax;
+
+    img {
+      width: 3vmax;
+    }
+  }
+
+  .container {
+    height: 90vh;
+    transform: translateY(10vh);
+    display: flex;
+    padding-inline: 3vmax;
+
+    @media (width <= 1111px) and (orientation: portrait) {
+      flex-direction: column;
+    }
+
+    .left {
+      width: 50%;
+      align-content: center;
+
+      @media (width <= 1111px) and (orientation: portrait) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      img {
+        width: 27vmax;
+        box-shadow: 0 0 0.3vmax #000;
+        transition: filter 0.3s ease;
+
+        @media (width <= 1111px) and (orientation: portrait) {
+          width: 20vmax;
+          margin-inline: auto;
+        }
+
+        &:hover {
+          filter: brightness(1.2) contrast(1.1) saturate(1.5);
+        }
+      }
+    }
+
+    .right {
+      padding: 2vmax;
+      align-content: center;
+
+      p {
+        font-size: 1.05vmax;
+        margin-bottom: 0.9vmax;
+
+        @media (width <= 1111px) and (orientation: portrait) {
+          font-size: 1.1vmax;
+        }
+      }
+    }
+  }
+</style>

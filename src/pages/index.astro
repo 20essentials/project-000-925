@@ -1,0 +1,87 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const games = await getCollection('games');
+---
+
+<Layout title='Some Videogames'>
+  <main class='container-cards'>
+    {
+      games.map(game => {
+        const { slug, data } = game;
+        const { title, img, release, plot } = data;
+        return (
+          <article class='card'>
+            <aside class='left'>
+              <a href={`/game/${slug}`}>
+                <img transition:name={`img-${slug}`} src={img} alt='img' />
+              </a>
+            </aside>
+            <aside class='right'>
+              <h1>{title}</h1>
+              <p transition:name={`plot-${slug}`}>{plot}</p>
+              <footer>Release: {release}</footer>
+            </aside>
+          </article>
+        );
+      })
+    }
+  </main>
+</Layout>
+
+<style>
+  .container-cards {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    width: 80%;
+    min-height: 60vh;
+    height: max-content;
+    transform: translate(-50%, -50%);
+    padding: 0.9vmax;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr));
+    gap: 1vmax;
+
+    @media (width <= 1111px) and (orientation: portrait) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .left {
+      align-content: center;
+      height: 100%;
+    }
+
+    .card {
+      display: flex;
+
+      img {
+        width: 13vmax;
+        box-shadow: 0 0 0.3vmax #000;
+        transition: filter 0.3s ease;
+
+        &:hover {
+          filter: brightness(1.2) contrast(1.1) saturate(1.5);
+        }
+      }
+
+      .right {
+        justify-content: center;
+        padding-inline: 1vmax;
+        display: flex;
+        flex-direction: column;
+
+        gap: 0.3vmax;
+        h1 {
+          font-size: 1.2vmax;
+        }
+
+        p,
+        footer {
+          font-size: 1vmax;
+          text-wrap: balance;
+        }
+      }
+    }
+  }
+</style>

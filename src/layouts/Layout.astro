@@ -1,0 +1,32 @@
+---
+  import '@/styles/global.css'
+  import Background from '@/components/Background.astro'
+  import ClientRouter from 'astro/components/ClientRouter.astro'
+
+  interface Props {
+    title: string
+  }
+
+  const { title = "Project" } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/assets/favicon.webp' />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Background />
+    <slot />
+  </body>
+</html>
+
+<script>
+  window.addEventListener('resize', e => {
+    document.title = `${window.innerWidth}`;
+  });
+</script>
